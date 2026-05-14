@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Cash Flow||Salary & Expense Tracker</title>
+
+  <!-- Google Font -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Remix Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+
+  <!-- Chart JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          <i class="ri-wallet-3-line"></i>
+        </div>
+
+        <div>
+
+          <h1 class="logo-text">
+            Cash Flow
+          </h1>
+
+          <p class="tagline">
+            Smart Salary & Expense Tracker
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="nav-actions">
+
+        <select id="currencySelect">
+
+          <option value="INR">
+            INR ₹
+          </option>
+
+          <option value="USD">
+            USD $
+          </option>
+
+          <option value="EUR">
+            EUR €
+          </option>
+
+          <option value="GBP">
+            GBP £
+          </option>
+
+          <option value="JPY">
+            JPY ¥
+          </option>
+
+          <option value="AUD">
+            AUD A$
+          </option>
+
+          <option value="CAD">
+            CAD C$
+          </option>
+
+          <option value="SGD">
+            SGD S$
+          </option>
+
+          <option value="AED">
+            AED د.إ
+          </option>
+
+        </select>
+
+        <button id="resetBtn">
+
+          <i class="ri-refresh-line"></i>
+
+        </button>
+
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+        >
+
+          <i class="ri-moon-clear-line"></i>
+
+        </button>
+
+      </div>
+
+    </header>
+
+    <!-- SALARY -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <i class="ri-bank-card-line"></i>
+
+        <h2>Set Salary</h2>
+
+      </div>
+
+      <div class="input-group">
+
+        <input
+          type="number"
+          id="salaryInput"
+          placeholder="Enter Your Salary"
+        />
+
+        <button id="saveSalaryBtn">
+
+          <i class="ri-save-line"></i>
+
+          Save Salary
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- EXPENSE -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <i class="ri-money-dollar-circle-line"></i>
+
+        <h2>Add Expense</h2>
+
+      </div>
+
+      <div class="expense-form">
+
+        <input
+          type="text"
+          id="expenseName"
+          placeholder="e.g. Rent, Electricity.."
+        />
+
+        <input
+          type="number"
+          id="expenseAmount"
+          placeholder="e.g. 999"
+        />
+
+        <button id="addExpenseBtn">
+
+          <i class="ri-add-line"></i>
+
+          Add Expense
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- SUMMARY -->
+
+    <section class="summary">
+
+      <div class="summary-card">
+
+        <div class="summary-icon">
+          <i class="ri-wallet-line"></i>
+        </div>
+
+        <h3>Salary</h3>
+
+        <p id="salaryDisplay">
+          ₹0
+        </p>
+
+      </div>
+
+      <div class="summary-card">
+
+        <div class="summary-icon">
+          <i class="ri-arrow-up-circle-line"></i>
+        </div>
+
+        <h3>Total Expenses</h3>
+
+        <p id="expenseDisplay">
+          ₹0
+        </p>
+
+      </div>
+
+      <div class="summary-card">
+
+        <div class="summary-icon">
+          <i class="ri-safe-2-line"></i>
+        </div>
+
+        <h3>Remaining Balance</h3>
+
+        <p id="balanceDisplay">
+          ₹0
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- WARNING -->
+
+    <p id="warningText"></p>
+
+<div class="dashboard-grid">
+
+  <!-- EXPENSE HISTORY -->
+
+  <section class="card">
+
+    <div class="expense-header">
+
+      <div class="card-title">
+
+        <i class="ri-history-line"></i>
+
+        <h2>Expense History</h2>
+
+      </div>
+
+      <button id="downloadPdfBtn">
+
+        <i class="ri-download-2-line"></i>
+
+        Download Report
+
+      </button>
+
+    </div>
+
+    <ul id="expenseList"></ul>
+
+  </section>
+
+  <!-- CHART -->
+
+  <section class="card">
+
+    <div class="card-title">
+
+      <i class="ri-pie-chart-2-line"></i>
+
+      <h2>Expense Analytics</h2>
+
+    </div>
+
+    <div class="chart-container">
+
+      <canvas id="expenseChart"></canvas>
+
+    </div>
+
+  </section>
+
+</div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
